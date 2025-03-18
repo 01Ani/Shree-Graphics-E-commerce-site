@@ -25,6 +25,16 @@ mongoose
 //   res.send(prod);
 // });
 
+app.get("/products", async (req, res) => {
+  const products = await Product.find({});
+  res.render("products/index", { products });
+});
+
+app.get("/products/:id", async (req, res) => {
+  const product = await Product.findById(req.params.id);
+  res.render("products/show", { product });
+});
+
 app.get("/", (req, res) => {
   res.render("home");
 });
