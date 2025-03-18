@@ -16,14 +16,14 @@ mongoose
     console.log("THERE WAS AN ERROR ON MONGO", err);
   });
 
-app.get("/makeproduct", async (req, res) => {
-  const prod = new Product({
-    title: "Letterheads",
-    description: "Make your own custom letterheads",
-  });
-  await prod.save();
-  res.send(prod);
-});
+// app.get("/makeproduct", async (req, res) => {
+//   const prod = new Product({
+//     title: "Letterheads",
+//     description: "Make your own custom letterheads",
+//   });
+//   await prod.save();
+//   res.send(prod);
+// });
 
 app.get("/", (req, res) => {
   res.render("home");
