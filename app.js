@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 const Product = require("./models/product");
 const methodOverride = require("method-override");
+const product = require("./models/product");
 
 const app = express();
 app.set("view engine", "ejs");
@@ -55,6 +56,11 @@ app.put("/products/:id", async (req, res) => {
     ...req.body.product,
   });
   res.redirect(`/products/${product._id}`);
+});
+
+app.delete("/products/:id", async (req, res) => {
+  const product = await Product.findByIdAndDelete(req.params.id);
+  res.redirect("/products");
 });
 
 app.get("/products/:id/edit", async (req, res) => {
