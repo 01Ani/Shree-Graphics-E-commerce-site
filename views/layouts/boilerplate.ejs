@@ -11,8 +11,11 @@
     />
     <title>S Graphics</title>
   </head>
-  <body>
-    <%- body %>
+
+  <body class="d-flex flex-column vh-100">
+    <%- include('../partials/navbar') %>
+
+    <main class="container"><%- body %></main>
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
       integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -24,5 +27,6 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <%- include('../partials/footer') %>
   </body>
 </html>
