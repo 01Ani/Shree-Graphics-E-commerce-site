@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Product = require("../models/product");
 const { types, materials } = require("./seedHelpers");
+const axios = require("axios");
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/sg-ecomwebsite")
@@ -20,15 +21,30 @@ randomNumInterval = (min, max) => {
 
 const seedPrdt = async () => {
   await Product.deleteMany({});
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 40; i++) {
     const prod = new Product({
       title: `${sample(types)} `,
       material: `${sample(materials)}`,
       quantity: randomNumInterval(50, 500),
+      image: await seedImg(),
     });
     await prod.save();
   }
 };
+
+async function seedImg() {
+  try {
+    const resp = await axios.get("https://api.unsplash.com/photos/random", {
+      params: {
+        client_id: "EqMMAB0dIp1VKlkgePn4xtpz8eKsQUR8-QxL57bjHqI",
+        collections: 647,
+      },
+    });
+    return resp.data.urls.small;
+  } catch (err) {
+    console.error(err);
+  }
+}
 
 seedPrdt().then(() => {
   mongoose.connection.close();

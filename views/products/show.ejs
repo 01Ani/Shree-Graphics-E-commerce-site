@@ -2,6 +2,7 @@
 
 <h1><%= product.title %></h1>
 <h2><%= product.material%></h2>
+<img src="<%=product.image%>" alt="">
 <p><a href="/products/<%= product._id %>/edit">Edit</a></p>
 <p>
 <form action="/products/<%= product._id %>?_method=DELETE" method="POST">

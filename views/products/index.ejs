@@ -2,10 +2,23 @@
 
 <h1>All products</h1>
 <a href="/products/new">Add new product</a>
-<ul>
-  <% for (let prod of product){%>
-  <li>
-    <a href="/products/<%=prod._id%>"><%= prod.title %></a>
-  </li>
-  <% } %>
-</ul>
+
+<% for (let prod of products){%>
+<div class="card">
+  <div class="row">
+    <div class="col-md-4">
+      <img class="img-fluid" src="<%=prod.image%>" />
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><%= prod.title %></h5>
+        <p class="card-text">
+          <small class="text-muted"><%= prod.material %></small>
+        </p>
+        <a href="/products/<%=prod._id%>"><%= prod.title %></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% }%>

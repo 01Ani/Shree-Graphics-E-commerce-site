@@ -1,8 +1,9 @@
 <link rel="stylesheet" href="/stylesheets/dropdown.css" />
 
-<nav class="navbar navbar-expand-lg navbar-light .bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">MegaMenu</a>
+
     <button
       class="navbar-toggler"
       type="button"
@@ -14,49 +15,176 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
+
         <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            data-bs-toggle="dropdown"
+            data-bs-auto-close="outside"
+            href="#"
+            >Multilevel</a
+          >
+          <ul class="dropdown-menu shadow">
+            <li><a class="dropdown-item" href="#">Gallery</a></li>
+            <li><a class="dropdown-item" href="#">Blog</a></li>
+            <li class="dropstart">
+              <a
+                class="dropdown-item dropdown-toggle"
+                data-bs-toggle="dropdown"
+                href="#"
+                >Submenu Left</a
+              >
+              <ul class="dropdown-menu shadow">
+                <li><a class="dropdown-item" href="#">Third Level 1</a></li>
+                <li><a class="dropdown-item" href="#">Third Level 2</a></li>
+                <li><a class="dropdown-item" href="#">Third Level 3</a></li>
+                <li><a class="dropdown-item" href="#">Third Level 4</a></li>
+                <li><a class="dropdown-item" href="#">Third Level 5</a></li>
+              </ul>
+            </li>
+            <li class="dropend">
+              <a
+                class="dropdown-item dropdown-toggle"
+                data-bs-toggle="dropdown"
+                data-bs-auto-close="outside"
+                href="#"
+                >Submenu right</a
+              >
+              <ul class="dropdown-menu shadow">
+                <li><a class="dropdown-item" href="#">Third Level 1</a></li>
+                <li><a class="dropdown-item" href="#">Third Level 2</a></li>
+                <li><a class="dropdown-item" href="#">Third Level 3</a></li>
+
+                <li class="dropend">
+                  <a
+                    class="dropdown-item dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    data-bs-auto-close="outside"
+                    href="#"
+                    >Lets go deeper</a
+                  >
+                  <ul class="dropdown-menu dropdown-submenu shadow">
+                    <li><a class="dropdown-item" href="#">Third Level 1</a></li>
+                    <li><a class="dropdown-item" href="#">Third Level 2</a></li>
+                    <li><a class="dropdown-item" href="#">Third Level 3</a></li>
+                    <li><a class="dropdown-item" href="#">Third Level 4</a></li>
+
+                    <li class="dropend">
+                      <a
+                        class="dropdown-item dropdown-toggle"
+                        data-bs-toggle="dropdown"
+                        data-bs-auto-close="outside"
+                        href="#"
+                        >Still don't ahve enough go much deeper</a
+                      >
+                      <ul class="dropdown-menu dropdown-submenu shadow">
+                        <li>
+                          <a class="dropdown-item" href="#">Third Level 1</a>
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="#">Third Level 2</a>
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="#">Third Level 3</a>
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="#">Third Level 4</a>
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="#">Third Level 5</a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li><a class="dropdown-item" href="#">Third Level 5</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown dropdown-mega position-static">
           <a
             class="nav-link dropdown-toggle"
             href="#"
             role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
+            data-bs-auto-close="outside"
           >
-            Dropdown
+            All products
           </a>
-          <div class="dropdown-menu">
-            <% if (Array.isArray(products)) { %> <% for (let prod of products)
-            {%>
-            <ul>
-              <li>
-                <a class="dropdown-item" href="/products/<%= prod._id %>"
-                  ><%= prod.title %></a
-                >
-              </li>
-            </ul>
-            <% } %> <% } %>
+          <div class="dropdown-menu shadow">
+            <div class="mega-content px-md-4">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-lg-3 col-sm-6 py-4 px-xl-5 px-4">
+                    <h5>Services</h5>
+                    <div class="list-group">
+                      <% if (Array.isArray(products)) { %> <% for (let prod of
+                      products) {%>
+                      <a
+                        class="list-group-item"
+                        href="/products/<%= prod._id %>"
+                        ><%= prod.title %></a
+                      >
+                      <% } %> <% } %>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-sm-6 py-4 px-xl-5 px-4">
+                    <h5>Services</h5>
+                    <div class="list-group">
+                      <a class="list-group-item">Accomodations</a>
+                      <a class="list-group-item">Terms and conditions</a>
+                      <a class="list-group-item">Privacy</a>
+                      <a class="list-group-item">lorem</a>
+                      <a class="list-group-item">lorem</a>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-sm-6 py-4 px-xl-5 px-4">
+                    <h5>Services</h5>
+                    <div class="list-group">
+                      <a class="list-group-item">Accomodations</a>
+                      <a class="list-group-item">Terms and conditions</a>
+                      <a class="list-group-item">Privacy</a>
+                      <a class="list-group-item">lorem</a>
+                      <a class="list-group-item">lorem</a>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-sm-6 py-4 px-xl-5 px-4">
+                    <h5>Services</h5>
+                    <div class="list-group">
+                      <a class="list-group-item">Accomodations</a>
+                      <a class="list-group-item">Terms and conditions</a>
+                      <a class="list-group-item">Privacy</a>
+                      <a class="list-group-item">lorem</a>
+                      <a class="list-group-item">lorem</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled" aria-disabled="true">Disabled</a>
         </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-success" type="submit">Search</button>
+      <form class="d-flex ms-auto" role="search">
+        <div class="input-group">
+          <input
+            class="form-control border-0 me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </div>
       </form>
     </div>
   </div>
