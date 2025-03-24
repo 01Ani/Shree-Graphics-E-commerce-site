@@ -11,6 +11,12 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.use(express.static(path.join(__dirname, "public")));
+
+app.use(async (req, res, next) => {
+  res.locals.products = await Product.find({});
+  next();
+});
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/sg-ecomwebsite")
@@ -31,8 +37,8 @@ mongoose
 // });
 
 app.get("/products", async (req, res) => {
-  const products = await Product.find({});
-  res.render("products/index", { products });
+  const product = await Product.find({});
+  res.render("products/index", { product });
 });
 
 app.post("/products", async (req, res) => {
@@ -60,7 +66,7 @@ app.put("/products/:id", async (req, res) => {
 });
 
 app.delete("/products/:id", async (req, res) => {
-  const product = await Product.findByIdAndDelete(req.params.id);
+  await Product.findByIdAndDelete(req.params.id);
   res.redirect("/products");
 });
 

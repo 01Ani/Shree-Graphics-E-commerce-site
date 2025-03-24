@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="/stylesheets/dropdown.css" />
+
 <nav class="navbar navbar-expand-lg navbar-light .bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Navbar</a>
@@ -30,12 +32,18 @@
           >
             Dropdown
           </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
+          <div class="dropdown-menu">
+            <% if (Array.isArray(products)) { %> <% for (let prod of products)
+            {%>
+            <ul>
+              <li>
+                <a class="dropdown-item" href="/products/<%= prod._id %>"
+                  ><%= prod.title %></a
+                >
+              </li>
+            </ul>
+            <% } %> <% } %>
+          </div>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled" aria-disabled="true">Disabled</a>
