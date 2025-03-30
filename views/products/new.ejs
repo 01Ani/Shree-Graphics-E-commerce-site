@@ -3,7 +3,7 @@
 <div class="row">
   <h1 class="text-center">New Product</h1>
   <div class="col-lg-6 offset-3">
-    <form action="/products" method="POST">
+    <form action="/products" method="POST" novalidate class="validated-form">
       <div class="mb-3">
         <label class="form-label" for="name">Name</label>
         <input
@@ -11,16 +11,21 @@
           type="text"
           id="name"
           name="product[name]"
+          required
         />
+        <div class="valid-feedback">Looks good!</div>
       </div>
+
       <div class="mb-3">
         <label class="form-label" for="stock">Stock</label>
         <input
           class="form-control"
-          type="text"
+          type="number"
           id="stock"
           name="product[stock]"
+          required
         />
+        <div class="valid-feedback">Looks good!</div>
       </div>
 
       <div class="mb-3">
@@ -30,7 +35,9 @@
           type="text"
           id="image"
           name="product[image]"
+          required
         />
+        <div class="valid-feedback">Looks good!</div>
       </div>
 
       <div class="mb-3">
@@ -38,15 +45,29 @@
         <div class="input-group">
           <span class="input-group-text" id="price-label">$</span>
           <input
-            type="text"
+            type="number"
             class="form-control"
             id="price"
             placeholder="0.00"
             aria-label="price"
             aria-describedby="price-label"
             name="product[price]"
+            required
           />
+          <div class="valid-feedback">Looks good!</div>
         </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="category">Category</label>
+        <input
+          class="form-control"
+          type="text"
+          id="stock"
+          name="product[category]"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
       </div>
 
       <div class="mb-3">
@@ -56,12 +77,14 @@
           type="text"
           id="description"
           name="product[description]"
+          required
         ></textarea>
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <button class="btn btn-success">Add Product</button>
       </div>
     </form>
-    <a href="/products">All campgrounds</a>
+    <a href="/products">All products</a>
   </div>
 </div>

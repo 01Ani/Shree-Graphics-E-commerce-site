@@ -3,7 +3,12 @@
 <div class="row">
   <h1 class="text-center">Edit Product</h1>
   <div class="col-lg-6 offset-3">
-    <form action="/products/<%= product._id %>?_method=PUT" method="POST">
+    <form
+      action="/products/<%= product._id %>?_method=PUT"
+      method="POST"
+      novalidate
+      class="validated-form"
+    >
       <div class="mb-3">
         <label class="form-label" for="name">Name</label>
         <input
@@ -12,17 +17,21 @@
           id="name"
           name="product[name]"
           value="<%= product.name %>"
+          required
         />
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <label class="form-label" for="stock">Stock</label>
         <input
           class="form-control"
-          type="text"
+          type="number"
           id="stock"
           name="product[stock]"
           value="<%= product.stock %>"
+          required
         />
+        <div class="valid-feedback">Looks good!</div>
       </div>
 
       <div class="mb-3">
@@ -33,7 +42,9 @@
           id="image"
           name="product[image]"
           value="<%= product.image %>"
+          required
         />
+        <div class="valid-feedback">Looks good!</div>
       </div>
 
       <div class="mb-3">
@@ -41,7 +52,7 @@
         <div class="input-group">
           <span class="input-group-text" id="price-label">$</span>
           <input
-            type="text"
+            type="number"
             class="form-control"
             id="price"
             placeholder="0.00"
@@ -49,8 +60,23 @@
             aria-describedby="price-label"
             name="product[price]"
             value="<%= product.price %>"
+            required
           />
+          <div class="valid-feedback">Looks good!</div>
         </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="category">Category</label>
+        <input
+          class="form-control"
+          type="text"
+          id="stock"
+          name="product[category]"
+          value="<%= product.category %>"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
       </div>
 
       <div class="mb-3">
@@ -60,9 +86,11 @@
           type="text"
           id="description"
           name="product[description]"
+          required
         >
 <%= product.description  %></textarea
         >
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <button class="btn btn-success">Add Product</button>
