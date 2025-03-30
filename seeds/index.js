@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const Product = require("../models/product");
-const { types, materials } = require("./seedHelpers");
+const { products } = require("./seedHelpers");
 const axios = require("axios");
+const product = require("../models/product");
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/sg-ecomwebsite")
@@ -21,12 +22,14 @@ randomNumInterval = (min, max) => {
 
 const seedPrdt = async () => {
   await Product.deleteMany({});
-  for (let i = 0; i < 40; i++) {
+  for (let product of products) {
     const prod = new Product({
-      title: `${sample(types)} `,
-      material: `${sample(materials)}`,
-      quantity: randomNumInterval(50, 500),
+      name: product.name,
+      category: product.category,
+      price: product.price,
+      description: product.description,
       image: await seedImg(),
+      stock: product.stock,
     });
     await prod.save();
   }

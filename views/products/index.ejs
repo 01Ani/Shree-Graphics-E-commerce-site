@@ -1,24 +1,21 @@
 <% layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="/stylesheets/index.css" />
 
-<h1>All products</h1>
 <a href="/products/new">Add new product</a>
 
-<% for (let prod of products){%>
-<div class="card">
+<div class="container text-center">
   <div class="row">
-    <div class="col-md-4">
-      <img class="img-fluid" src="<%=prod.image%>" />
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title"><%= prod.title %></h5>
-        <p class="card-text">
-          <small class="text-muted"><%= prod.material %></small>
-        </p>
-        <a href="/products/<%=prod._id%>"><%= prod.title %></a>
+    <% for (let prod of product){%>
+    <div class="col-lg-4 col-xl-4 py-4 px-6">
+      <div class="card" style="width: 18rem">
+        <img src="<%= prod.image %>" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title"><%= prod.name %></h5>
+          <p class="card-text"><%= prod.description %></p>
+          <a href="/products/<%=prod._id%>" class="btn btn-primary">View</a>
+        </div>
       </div>
     </div>
+    <% }%>
   </div>
 </div>
-
-<% }%>

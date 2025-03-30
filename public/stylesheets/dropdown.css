@@ -1,41 +1,7 @@
-button:focus,
-.navbar-toggler:focus {
-  outline: 0;
-  box-shadow: none;
-}
-
-.navbar-brand {
-  font-size: 40px;
-  font-weight: 700;
-}
-
-.navbar-nav .nav-item {
-  margin: 0 10px;
-}
-
-.navbar-nav .nav-link {
-  font-size: 16px;
-  font-weight: 400;
-  display: inline-block;
-}
-
-.dropdown-menu .dropdown-item {
-  margin-bottom: 10px;
-}
-
 .dropdown-mega .dropdown-menu {
   width: 100%;
 }
 
-.dropdown-mega {
-  padding-bottom: 12px;
-  border-bottom: 1px solid black;
-  margin: 0;
-}
-
-.list-group-item {
-  font-size: 16px;
-  border: 0;
-  border-bottom: 1px solid black;
-  padding: 12px 0;
+.dropdown-item {
+  border-bottom: 1px solid #e9ecef;
 }
