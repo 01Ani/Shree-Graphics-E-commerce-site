@@ -7,6 +7,16 @@ const ejsMate = require("ejs-mate");
 const catchAsync = require("./utils/catchAsync");
 const expressError = require("./utils/expressError");
 const products = require("./routes/products");
+const session = require("express-session");
+
+mongoose
+  .connect("mongodb://127.0.0.1:27017/sg-ecomwebsite")
+  .then(() => {
+    console.log("MONGO CONNECTED!");
+  })
+  .catch((err) => {
+    console.log("THERE WAS AN ERROR ON MONGO", err);
+  });
 
 const app = express();
 app.engine("ejs", ejsMate);
@@ -21,14 +31,18 @@ app.use(async (req, res, next) => {
   next();
 });
 
-mongoose
-  .connect("mongodb://127.0.0.1:27017/sg-ecomwebsite")
-  .then(() => {
-    console.log("MONGO CONNECTED!");
-  })
-  .catch((err) => {
-    console.log("THERE WAS AN ERROR ON MONGO", err);
-  });
+const sessionConfig = {
+  secret: "thisshouldbeasecret!",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7, //set for a week
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+  },
+};
+
+app.use(session(sessionConfig));
 
 //router for products
 app.use("/products", products);
