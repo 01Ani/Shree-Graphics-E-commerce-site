@@ -6,6 +6,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const catchAsync = require("./utils/catchAsync");
 const expressError = require("./utils/expressError");
+const { productSchema } = require("./schemas");
 
 const app = express();
 app.engine("ejs", ejsMate);
@@ -29,14 +30,15 @@ mongoose
     console.log("THERE WAS AN ERROR ON MONGO", err);
   });
 
-// app.get("/makeproduct", async (req, res) => {
-//   const prod = new Product({
-//     title: "Letterheads",
-//     description: "Make your own custom letterheads",
-//   });
-//   await prod.save();
-//   res.send(prod);
-// });
+const validateProduct = (req, res, next) => {
+  const { error } = productSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map((el) => el.message).join(",");
+    throw new expressError(msg, 400);
+  } else {
+    next();
+  }
+};
 
 app.get(
   "/products",
@@ -48,8 +50,11 @@ app.get(
 
 app.post(
   "/products",
+  validateProduct,
   catchAsync(async (req, res) => {
-    if (!req.body.product) throw new expressError("Invalid Product", 400);
+    // if (!req.body.product) throw new expressError("Invalid Product", 400);
+    //above is basic for everything, instead we implement joi validation for each
+
     const product = new Product(req.body.product);
     await product.save();
     res.redirect(`/products/${product._id}`);
@@ -71,6 +76,7 @@ app.get(
 
 app.put(
   "/products/:id",
+  validateProduct,
   catchAsync(async (req, res) => {
     const { id } = req.params;
     const product = await Product.findByIdAndUpdate(id, {
