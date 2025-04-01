@@ -8,6 +8,7 @@ const catchAsync = require("./utils/catchAsync");
 const expressError = require("./utils/expressError");
 const products = require("./routes/products");
 const session = require("express-session");
+const flash = require("connect-flash");
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/sg-ecomwebsite")
@@ -43,6 +44,13 @@ const sessionConfig = {
 };
 
 app.use(session(sessionConfig));
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+});
 
 //router for products
 app.use("/products", products);

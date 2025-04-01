@@ -33,6 +33,7 @@ router.post(
 
     const product = new Product(req.body.product);
     await product.save();
+    req.flash("success", "Successfully made a product!");
     res.redirect(`/products/${product._id}`);
     // res.send(req.body);
   })
@@ -46,6 +47,10 @@ router.get(
   "/:id",
   catchAsync(async (req, res) => {
     const product = await Product.findById(req.params.id);
+    if (!product) {
+      req.flash("error", "Product does not exist");
+      res.redirect("/products");
+    }
     res.render("products/show", { product });
   })
 );
@@ -58,6 +63,7 @@ router.put(
     const product = await Product.findByIdAndUpdate(id, {
       ...req.body.product,
     });
+    req.flash("success", "Successfully updated product!");
     res.redirect(`/products/${product._id}`);
   })
 );
@@ -66,6 +72,7 @@ router.delete(
   "/:id",
   catchAsync(async (req, res) => {
     await Product.findByIdAndDelete(req.params.id);
+    req.flash("success", "Successfully deleted product!");
     res.redirect("/products");
   })
 );
@@ -74,6 +81,10 @@ router.get(
   "/:id/edit",
   catchAsync(async (req, res) => {
     const product = await Product.findById(req.params.id);
+    if (!product) {
+      req.flash("error", "Product does not exist, cannot edit!");
+      res.redirect("/products");
+    }
     res.render("products/edit", { product });
   })
 );
