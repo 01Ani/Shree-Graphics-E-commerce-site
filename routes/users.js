@@ -15,9 +15,12 @@ router.post(
       const { email, username, password } = req.body;
       const user = new User({ email, username });
       const registeredUser = await User.register(user, password);
-      console.log(registeredUser);
-      req.flash("success", "Welcome, you are logged in!");
-      res.redirect("/products");
+      //below is to be able to see isLoggedIn stuff, after registering for the first time. Which initially was not viewable until you actually 'log in'
+      req.login(registeredUser, (err) => {
+        if (err) return next(err);
+        req.flash("success", "Welcome to yelpCamp");
+        res.redirect("/products");
+      });
     } catch (e) {
       req.flash("error", e.message);
       res.redirect("/register");
@@ -40,5 +43,15 @@ router.post(
     res.redirect("/products");
   }
 );
+
+router.get("/logout", (req, res, next) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    req.flash("success", "Successfully logged out!");
+    res.redirect("/products");
+  });
+});
 
 module.exports = router;
