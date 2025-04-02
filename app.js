@@ -6,12 +6,13 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const catchAsync = require("./utils/catchAsync");
 const expressError = require("./utils/expressError");
-const products = require("./routes/products");
+const productRoutes = require("./routes/products");
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
 const localStrategy = require("passport-local");
 const User = require("./models/user");
+const userRoutes = require("./routes/users");
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/sg-ecomwebsite")
@@ -68,7 +69,9 @@ app.get("/fakeUser", async (req, res) => {
 });
 
 //router for products
-app.use("/products", products);
+app.use("/products", productRoutes);
+//router for users
+app.use("/", userRoutes);
 
 app.get("/", (req, res) => {
   res.render("home");
