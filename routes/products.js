@@ -5,6 +5,7 @@ const { productSchema } = require("../schemas");
 const catchAsync = require("../utils/catchAsync");
 const expressError = require("../utils/expressError");
 const Product = require("../models/product");
+const { isLoggedIn } = require("../middleware.js");
 
 const validateProduct = (req, res, next) => {
   const { error } = productSchema.validate(req.body);
@@ -26,6 +27,7 @@ router.get(
 
 router.post(
   "/",
+  isLoggedIn,
   validateProduct,
   catchAsync(async (req, res) => {
     // if (!req.body.product) throw new expressError("Invalid Product", 400);
@@ -39,7 +41,7 @@ router.post(
   })
 );
 
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {
   res.render("products/new");
 });
 
@@ -57,6 +59,7 @@ router.get(
 
 router.put(
   "/:id",
+  isLoggedIn,
   validateProduct,
   catchAsync(async (req, res) => {
     const { id } = req.params;
@@ -70,6 +73,7 @@ router.put(
 
 router.delete(
   "/:id",
+  isLoggedIn,
   catchAsync(async (req, res) => {
     await Product.findByIdAndDelete(req.params.id);
     req.flash("success", "Successfully deleted product!");
@@ -79,6 +83,7 @@ router.delete(
 
 router.get(
   "/:id/edit",
+  isLoggedIn,
   catchAsync(async (req, res) => {
     const product = await Product.findById(req.params.id);
     if (!product) {
