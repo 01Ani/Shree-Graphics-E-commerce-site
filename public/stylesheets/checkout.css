@@ -1,0 +1,7 @@
+.cpi {
+  width: 100px;
+}
+
+table.alignMiddle td {
+  vertical-align: middle !important;
+}

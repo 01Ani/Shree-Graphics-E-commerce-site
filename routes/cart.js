@@ -45,11 +45,17 @@ router.get(
         });
       }
     }
-    console.log(req.session.cart);
+    // console.log(req.session.cart);
     req.flash("success", "Product added!");
     //if the Referer is set (i.e., the previous page), it'll redirect there. Otherwise, it falls back to /products.
     res.redirect(req.get("Referrer") || "/products");
   })
 );
+
+//for checkout page
+router.get("/checkout", (req, res) => {
+  const cart = req.session.cart;
+  res.render("shoppingCart/checkout", { cart });
+});
 
 module.exports = router;
