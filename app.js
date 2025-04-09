@@ -6,13 +6,16 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const catchAsync = require("./utils/catchAsync");
 const expressError = require("./utils/expressError");
-const productRoutes = require("./routes/products");
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
 const localStrategy = require("passport-local");
 const User = require("./models/user");
+
+//Requiring Routes
+const productRoutes = require("./routes/products");
 const userRoutes = require("./routes/users");
+const cartRoutes = require("./routes/cart");
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/sg-ecomwebsite")
@@ -63,16 +66,23 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/fakeUser", async (req, res) => {
-  const user = new User({ email: "anirudh@gmail.com", username: "anirudh" });
-  const newUser = await User.register(user, "dogs");
-  res.send(newUser);
+app.use((req, res, next) => {
+  res.locals.cart = req.session.cart;
+  next();
 });
+
+// app.get("/fakeUser", async (req, res) => {
+//   const user = new User({ email: "anirudh@gmail.com", username: "anirudh" });
+//   const newUser = await User.register(user, "dogs");
+//   res.send(newUser);
+// });
 
 //router for products
 app.use("/products", productRoutes);
 //router for users
 app.use("/", userRoutes);
+//router for cart
+app.use("/cart", cartRoutes);
 
 app.get("/", (req, res) => {
   res.render("home");
