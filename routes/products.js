@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+const mongoose = require("mongoose");
 const { productSchema } = require("../schemas");
 const catchAsync = require("../utils/catchAsync");
 const expressError = require("../utils/expressError");
@@ -48,7 +49,15 @@ router.get("/new", isLoggedIn, (req, res) => {
 router.get(
   "/:id",
   catchAsync(async (req, res) => {
-    const product = await Product.findById(req.params.id);
+    const { id } = req.params;
+
+    //below is done to throw error message when product gets the cast to object id error
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      req.flash("error", "Product does not exist");
+      return res.redirect("/products");
+    }
+
+    const product = await Product.findById(id);
     if (!product) {
       req.flash("error", "Product does not exist");
       res.redirect("/products");
@@ -63,6 +72,13 @@ router.put(
   validateProduct,
   catchAsync(async (req, res) => {
     const { id } = req.params;
+
+    //below is done to throw error message when product gets the cast to object id error
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      req.flash("error", "Product does not exist");
+      return res.redirect("/products");
+    }
+
     const product = await Product.findByIdAndUpdate(id, {
       ...req.body.product,
     });
@@ -75,7 +91,15 @@ router.delete(
   "/:id",
   isLoggedIn,
   catchAsync(async (req, res) => {
-    await Product.findByIdAndDelete(req.params.id);
+    const { id } = req.params;
+
+    //below is done to throw error message when product gets the cast to object id error
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      req.flash("error", "Product does not exist");
+      return res.redirect("/products");
+    }
+
+    await Product.findByIdAndDelete(id);
     req.flash("success", "Successfully deleted product!");
     res.redirect("/products");
   })
@@ -85,7 +109,15 @@ router.get(
   "/:id/edit",
   isLoggedIn,
   catchAsync(async (req, res) => {
-    const product = await Product.findById(req.params.id);
+    const { id } = req.params;
+
+    //below is done to throw error message when product gets the cast to object id error
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      req.flash("error", "Product does not exist");
+      return res.redirect("/products");
+    }
+
+    const product = await Product.findById(id);
     if (!product) {
       req.flash("error", "Product does not exist, cannot edit!");
       res.redirect("/products");
