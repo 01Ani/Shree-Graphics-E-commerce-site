@@ -13,7 +13,7 @@
     <th></th>
     <th>Subtotal</th>
   </tr>
-  <% var total=0; %> <% cart.forEach(function(product) {%> 
+  <% var total=0; %> <% cart.forEach(function(product) {%>
   <% var sub=parseFloat(product.qty*product.price).toFixed(2) %> 
   <% total += parseFloat(sub) %>
   <tr>
@@ -36,7 +36,7 @@
   </tr>
   <tr>
     <td colspan="5" align="right">
-      <a class="btn btn-danger" href="/cart/clear">Clear cart</a>
+      <a class="btn btn-danger" id="clear-cart-btn" href="#">Clear cart</a>
     </td>
     <td colspan="5" align="right">
       <a class="btn btn-primary buyNow" href="#">Buy now</a>
@@ -46,6 +46,29 @@
 <%}else{ %>
 <h3 class="text-center">Your cart is empty!</h3>
 <% } %>
+
+<!-- <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const clearCartBtn = document.querySelector("#clear-cart-btn");
+
+    clearCartBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+
+      const confirmed = confirm("Are you sure you want to clear the cart?");
+      if (!confirmed) return;
+
+      try {
+        const response = await fetch("/cart/clear");
+        if (response.redirected) {
+          window.location.href = response.url; // redirect if server sends one
+        }
+      } catch (err) {
+        console.error("Failed to clear cart", err);
+        alert("Something went wrong!");
+      }
+    });
+  });
+</script> -->
 
 <footer>
   <a href="/products">Back to all products</a>

@@ -20,6 +20,13 @@ router.get("/checkout", (req, res) => {
   }
 });
 
+//clear whole cart
+router.get("/clear", (req, res) => {
+  delete req.session.cart;
+  req.flash("success", "Cart cleared!");
+  res.redirect("/cart/checkout"); // <- THIS is the redirect
+});
+
 //add product to cart
 router.get(
   "/add/:id",
