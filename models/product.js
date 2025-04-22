@@ -5,6 +5,10 @@ const ProductSchema = new schema({
   name: String,
   category: String,
   price: Number,
+  category: {
+    type: schema.Types.ObjectId,
+    ref: "Category",
+  },
   description: String,
   image: String,
   stock: Number,

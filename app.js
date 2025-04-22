@@ -16,6 +16,7 @@ const User = require("./models/user");
 const productRoutes = require("./routes/products");
 const userRoutes = require("./routes/users");
 const cartRoutes = require("./routes/cart");
+const categoryRoutes = require("./routes/categories");
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/sg-ecomwebsite")
@@ -31,6 +32,7 @@ app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -83,6 +85,8 @@ app.use("/products", productRoutes);
 app.use("/", userRoutes);
 //router for cart
 app.use("/cart", cartRoutes);
+//router for categories
+app.use("/categories", categoryRoutes);
 
 app.get("/", (req, res) => {
   res.render("home");
