@@ -42,6 +42,14 @@ router.post(
   })
 );
 
+router.get(
+  "/api",
+  catchAsync(async (req, res) => {
+    const products = await Product.find({}).populate("category");
+    res.send(products); // Sends JSON instead of rendering a page
+  })
+);
+
 router.get("/new", isLoggedIn, (req, res) => {
   res.render("products/new");
 });
@@ -57,7 +65,7 @@ router.get(
       return res.redirect("/products");
     }
 
-    const product = await Product.findById(id);
+    const product = await Product.findById(id).populate("category", "name");
     if (!product) {
       req.flash("error", "Product does not exist");
       res.redirect("/products");

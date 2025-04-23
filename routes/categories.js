@@ -55,8 +55,6 @@ router.get(
 
 router.put(
   "/:id",
-  isLoggedIn,
-  validateProduct,
   catchAsync(async (req, res) => {
     const { id } = req.params;
 
@@ -66,10 +64,18 @@ router.put(
       return res.redirect("/products");
     }
 
-    const category = await Category.findByIdAndUpdate(id, {
-      ...req.body.category,
-    });
-    req.flash("success", "Successfully updated category!");
+    const category = await Category.findByIdAndUpdate(
+      id,
+      {
+        name: req.body.name,
+      },
+      { new: true } //return the new updated data rather than the old one...can be seen on postman
+    );
+    if (!category) {
+      req.flash("error", "Category does not exist");
+      res.redirect("/products");
+    }
+    res.send(category);
     // res.redirect(`/products/${product._id}`);
   })
 );
