@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 router.get(
   "/",
   catchAsync(async (req, res) => {
-    const categoryList = await Category.find({});
+    const categoryList = await Category.find({}).populate("categroy", "name");
     if (!categoryList) {
       req.flash("error", "Category does not exist");
       res.redirect("/products");

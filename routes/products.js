@@ -21,7 +21,7 @@ const validateProduct = (req, res, next) => {
 router.get(
   "/",
   catchAsync(async (req, res) => {
-    const product = await Product.find({});
+    const product = await Product.find({}).populate("category", "name");
     res.render("products/index", { product });
   })
 );
@@ -42,13 +42,13 @@ router.post(
   })
 );
 
-router.get(
-  "/api",
-  catchAsync(async (req, res) => {
-    const products = await Product.find({}).populate("category");
-    res.send(products); // Sends JSON instead of rendering a page
-  })
-);
+// router.get(
+//   "/api",
+//   catchAsync(async (req, res) => {
+//     const products = await Product.find({}).populate("category", "name");
+//     res.send(products); // Sends JSON instead of rendering a page
+//   })
+// );
 
 router.get("/new", isLoggedIn, (req, res) => {
   res.render("products/new");

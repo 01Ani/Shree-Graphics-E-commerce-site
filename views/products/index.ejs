@@ -2,23 +2,187 @@
 <link rel="stylesheet" href="/stylesheets/index.css" />
 
 <div class="container-background container-fluid text-white py-5">
-  <div class="row align-items-center px-5">
+  <div class="row px-5">
     <div class="col-md-6">
-      <h1 class="display-4 fw-bold">Custom printing for brands & you.</h1>
-      <p>
-        Trusted by 35k+ customers | Easy online ordering | Pan-India Delivery
-      </p>
+      <h1 class="display-4 fw-bold">Custom prints, crafted for you.</h1>
+      <p>Fast delivery•Trusted by thousands•Effortless to order.</p>
       <a class="btn btn-light me-2">Explore Now</a>
       <a class="btn btn-warning">Get Samples</a>
     </div>
   </div>
 </div>
 
-<a href="/products/new">Add new product</a>
+<h2 class="text-center mb-4">Products by categories</h2>
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button
+      class="nav-link active"
+      id="banner-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#banner"
+      type="button"
+      role="tab"
+      aria-controls="banner"
+      aria-selected="true"
+    >
+      Banners
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button
+      class="nav-link"
+      id="businessCards-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#businessCards"
+      type="button"
+      role="tab"
+      aria-controls="businessCards"
+      aria-selected="false"
+    >
+      Business Cards
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button
+      class="nav-link"
+      id="tShirts-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#tShirts"
+      type="button"
+      role="tab"
+      aria-controls="tShirts"
+      aria-selected="false"
+    >
+      T-Shirts
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button
+      class="nav-link"
+      id="stickers-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#stickers"
+      type="button"
+      role="tab"
+      aria-controls="stickers"
+      aria-selected="false"
+    >
+      Stickers
+    </button>
+  </li>
+</ul>
 
-<div class="container text-center">
+<!-- Tab panes -->
+<div class="tab-content">
+  <div
+    class="tab-pane active"
+    id="banner"
+    role="tabpanel"
+    aria-labelledby="banner-tab"
+    tabindex="0"
+  >
+    <div class="container text-center">
+      <div class="row">
+        <% for (let prod of product){%> <% if(prod.category.name==='Banners'){
+        %>
+        <div class="col-lg-4 col-xl-4 py-4 px-6">
+          <div class="card" style="width: 18rem">
+            <img src="<%= prod.image %>" class="card-img-top" alt="..." />
+            <div class="card-body">
+              <h5 class="card-title"><%= prod.name %></h5>
+              <p class="card-text"><%= prod.description %></p>
+              <a href="/products/<%=prod._id%>" class="btn btn-primary">View</a>
+            </div>
+          </div>
+        </div>
+        <% } %> <% }%>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="tab-pane"
+    id="businessCards"
+    role="tabpanel"
+    aria-labelledby="businessCards-tab"
+    tabindex="0"
+  >
+    <div class="container text-center">
+      <div class="row">
+        <% for (let prod of product){%> <% if(prod.category.name==='Business Cards'){
+        %>
+        <div class="col-lg-4 col-xl-4 py-4 px-6">
+          <div class="card" style="width: 18rem">
+            <img src="<%= prod.image %>" class="card-img-top" alt="..." />
+            <div class="card-body">
+              <h5 class="card-title"><%= prod.name %></h5>
+              <p class="card-text"><%= prod.description %></p>
+              <a href="/products/<%=prod._id%>" class="btn btn-primary">View</a>
+            </div>
+          </div>
+        </div>
+        <% } %> <% }%>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="tab-pane"
+    id="tShirts"
+    role="tabpanel"
+    aria-labelledby="tShirts-tab"
+    tabindex="0"
+  >
+  <div class="container text-center">
+      <div class="row">
+        <% for (let prod of product){%> <% if(prod.category.name==='T-Shirts'){
+        %>
+        <div class="col-lg-4 col-xl-4 py-4 px-6">
+          <div class="card" style="width: 18rem">
+            <img src="<%= prod.image %>" class="card-img-top" alt="..." />
+            <div class="card-body">
+              <h5 class="card-title"><%= prod.name %></h5>
+              <p class="card-text"><%= prod.description %></p>
+              <a href="/products/<%=prod._id%>" class="btn btn-primary">View</a>
+            </div>
+          </div>
+        </div>
+        <% } %> <% }%>
+      </div>
+    </div>
+  </div>
+  
+  <div
+    class="tab-pane"
+    id="stickers"
+    role="tabpanel"
+    aria-labelledby="stickers-tab"
+    tabindex="0"
+  >
+  <div class="container text-center">
+      <div class="row">
+        <% for (let prod of product){%> <% if(prod.category.name==='Stickers'){
+        %>
+        <div class="col-lg-4 col-xl-4 py-4 px-6">
+          <div class="card" style="width: 18rem">
+            <img src="<%= prod.image %>" class="card-img-top" alt="..." />
+            <div class="card-body">
+              <h5 class="card-title"><%= prod.name %></h5>
+              <p class="card-text"><%= prod.description %></p>
+              <a href="/products/<%=prod._id%>" class="btn btn-primary">View</a>
+            </div>
+          </div>
+        </div>
+        <% } %> <% }%>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="container text-center">
   <div class="row">
-    <% for (let prod of product){%>
+    <% for (let prod of products){%>
     <div class="col-lg-4 col-xl-4 py-4 px-6">
       <div class="card" style="width: 18rem">
         <img src="<%= prod.image %>" class="card-img-top" alt="..." />
@@ -31,4 +195,4 @@
     </div>
     <% }%>
   </div>
-</div>
+</div> -->

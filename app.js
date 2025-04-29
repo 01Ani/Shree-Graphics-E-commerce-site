@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const Product = require("./models/product");
+const Category = require("./models/category");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const catchAsync = require("./utils/catchAsync");
@@ -38,6 +39,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(async (req, res, next) => {
   res.locals.products = await Product.find({});
+  res.locals.categories = await Category.find({});
   next();
 });
 

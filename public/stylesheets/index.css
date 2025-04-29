@@ -1,3 +1,8 @@
 .container-background {
   background-color: #f95959;
 }
+
+.card-img-top {
+  height: 200px; /* or any desired uniform height */
+  object-fit: cover;
+}
