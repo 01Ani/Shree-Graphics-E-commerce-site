@@ -10,3 +10,9 @@ module.exports.productSchema = Joi.object({
     stock: Joi.number().required().min(0),
   }).required(),
 });
+
+module.exports.categorySchema = Joi.object({
+  category: Joi.object({
+    name: Joi.string().required(),
+  }).required(),
+});

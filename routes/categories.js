@@ -4,10 +4,23 @@ const router = express.Router();
 const Category = require("../models/category");
 const catchAsync = require("../utils/catchAsync");
 const expressError = require("../utils/expressError");
+const { categorySchema } = require("../schemas");
+const { isLoggedIn } = require("../middleware.js");
 const mongoose = require("mongoose");
+
+const validateCategory = (req, res, next) => {
+  const { error } = categorySchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map((el) => el.message).join(",");
+    throw new expressError(msg, 400);
+  } else {
+    next();
+  }
+};
 
 router.get(
   "/",
+  isLoggedIn,
   catchAsync(async (req, res) => {
     const category = await Category.find({});
 
@@ -22,6 +35,8 @@ router.get(
 
 router.post(
   "/",
+  isLoggedIn,
+  validateCategory,
   catchAsync(async (req, res) => {
     let category = new Category({
       name: req.body.category.name,
@@ -38,12 +53,13 @@ router.post(
   })
 );
 
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {
   res.render("categories/new");
 });
 
 router.get(
   "/:id",
+  isLoggedIn,
   catchAsync(async (req, res) => {
     const { id } = req.params;
 
@@ -65,6 +81,8 @@ router.get(
 
 router.put(
   "/:id",
+  validateCategory,
+  isLoggedIn,
   catchAsync(async (req, res) => {
     const { id } = req.params;
 
@@ -93,6 +111,7 @@ router.put(
 
 router.delete(
   "/:id",
+  isLoggedIn,
   catchAsync(async (req, res) => {
     const { id } = req.params;
 
@@ -108,20 +127,24 @@ router.delete(
   })
 );
 
-router.get("/:id/edit", async (req, res) => {
-  const { id } = req.params;
+router.get(
+  "/:id/edit",
+  isLoggedIn,
+  catchAsync(async (req, res) => {
+    const { id } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    req.flash("error", "Category does not exist");
-    return res.redirect("/categories");
-  }
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      req.flash("error", "Category does not exist");
+      return res.redirect("/categories");
+    }
 
-  const category = await Category.findById(id);
-  if (!category) {
-    req.flash("error", "Product does not exist, cannot edit!");
-    return res.redirect("/categories");
-  }
-  res.render("categories/edit", { category });
-});
+    const category = await Category.findById(id);
+    if (!category) {
+      req.flash("error", "Product does not exist, cannot edit!");
+      return res.redirect("/categories");
+    }
+    res.render("categories/edit", { category });
+  })
+);
 
 module.exports = router;
