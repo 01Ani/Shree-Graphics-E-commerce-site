@@ -1,0 +1,12 @@
+<% layout('layouts/boilerplate') %>
+
+<h1><%= category.name %></h1>
+
+<p><a href="/categories/<%= category._id %>/edit">Edit</a></p>
+<form action="/categories/<%= category._id %>?_method=DELETE" method="POST">
+  <button>Delete</button>
+</form>
+
+<footer>
+  <a href="/categories">All Categories</a>
+</footer>

@@ -60,13 +60,13 @@
 
       <div class="mb-3">
         <label class="form-label" for="category">Category</label>
-        <input
-          class="form-control"
-          type="text"
-          id="stock"
-          name="product[category]"
-          required
-        />
+        <select class="form-select" name="product[category]" required>
+          <option disabled selected>Select a category</option>
+          <!-- disabled because select a category should not be selected as a category itself -->
+          <% for (let cat of categories) { %>
+          <option value="<%= cat._id %>"><%= cat.name %></option>
+          <% } %>
+        </select>
         <div class="valid-feedback">Looks good!</div>
       </div>
 

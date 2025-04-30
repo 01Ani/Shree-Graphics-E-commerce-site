@@ -68,7 +68,7 @@ router.get(
     const product = await Product.findById(id).populate("category", "name");
     if (!product) {
       req.flash("error", "Product does not exist");
-      res.redirect("/products");
+      return res.redirect("/products");
     }
     res.render("products/show", { product });
   })
@@ -128,7 +128,7 @@ router.get(
     const product = await Product.findById(id);
     if (!product) {
       req.flash("error", "Product does not exist, cannot edit!");
-      res.redirect("/products");
+      return res.redirect("/products");
     }
     res.render("products/edit", { product });
   })

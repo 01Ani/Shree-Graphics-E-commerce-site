@@ -1,0 +1,30 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+  <h1 class="text-center">Edit Category</h1>
+  <div class="col-lg-6 offset-3">
+    <form
+      action="/categories/<%= category._id %>?_method=PUT"
+      method="POST"
+      novalidate
+      class="validated-form"
+    >
+      <div class="mb-3">
+        <label class="form-label" for="name">Category Name</label>
+        <input
+          class="form-control"
+          type="text"
+          id="name"
+          value="<%= category.name %>"
+          name="category[name]"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+        <div class="mb-3">
+          <button class="btn btn-success">Add Category</button>
+        </div>
+      </div>
+    </form>
+    <a href="/categories">All categories</a>
+  </div>
+</div>
